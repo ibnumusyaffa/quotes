@@ -43,7 +43,7 @@ function App() {
   return (
     <div className="bg-black h-screen flex justify-center items-center p-40">
       <p
-        className="text-white  text-lg text-4xl p-10"
+        className="text-white  text-lg text-6xl p-10"
         dangerouslySetInnerHTML={quotes[count]}
       ></p>
     </div>
