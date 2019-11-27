@@ -1,26 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+
 import logo from './logo.svg';
-
-
+let quotes = [
+  "lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,",
+  'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old',
+  'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour,'
+];
 function App() {
+  const [count, setCount] = useState(0);
+  const savedCallback = useRef();
+
+  function callback() {
+    setCount(count + 1);
+    if (count === quotes.length - 1) {
+      setCount(0);
+    } else {
+      setCount(count + 1);
+    }
+  }
+
+  useEffect(() => {
+    savedCallback.current = callback;
+  });
+
+  useEffect(() => {
+    function tick() {
+      savedCallback.current();
+    }
+
+    let id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
+
+
   return (
-<div className="App" >
-    <div className="w-full max-w-md bg-gray-800" >
-      <form action="" className=" bg-white shadow-md rounded px-8 py-8 pt-8">
-        <div className="px-4 pb-4">
-          <label htmlFor="email" className="text-sm block font-bold  pb-2">EMAIL ADDRESS</label>
-          <input type="email" name="email" id="" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-blue-300 " placeholder="Johnbull@example.com"/>
-        </div>
-        <div  className="px-4 pb-4">
-          <label htmlFor="password" className="text-sm block font-bold pb-2">PASSWORD</label>
-          <input type="password" name="email" id="" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-blue-300" placeholder="Enter your password"/>
-        </div>
-        <div>
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">Sign In</button>
-        </div>
-      </form>
+    <div className="bg-black h-screen flex justify-center items-center p-40">
+      <div className="text-white  text-lg text-3xl">
+        {count}
+        {quotes[count]}
+      </div>
     </div>
-  </div>
   );
 }
 
