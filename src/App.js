@@ -1,11 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
+import posed from 'react-pose';
 
-import logo from './logo.svg';
 let quotes = [
-  "lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,",
-  'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old',
-  'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour,'
+  {
+    __html: `
+    “Sesungguhnya Allah menyuruh kamu untuk menunaikan amanah kepada yang berhak menerimanya, dan (menyuruh kamu) apabila kalian menetapkan hukum di antara manusia supaya kamu menetapkannya dengan adil. Sesungguhnya Allah memberikan pengajaran yang sebaik-baiknya kepadamu. Sesungguhnya Allah adalah Maha Mendengar lagi Maha Melihat”. [An-Nisa : 58]"`
+  },
+  {
+    __html: `“Wahai orang-orang yang beriman janganlah kamu mengkhianati Allah dan Rasul (Muhammad) dan (juga) janganlah kamu mengkhianati amanah-amanah yang dipercayakan kepadamu sedangkan kamu mengetahui” [Al-Anfal : 27]`
+  },
+  {
+    __html: `“Kecelakaan besarlah bagi orang-orang yang curang. Yaitu orang-orang yang apabila menerima takaran dari orang lain mereka meminta dipenuhi. Dan apabila mereka menakar atau menimbang untuk orang lain, mereka mengurangi. Tidaklah oran-orang itu yakin, bahwa sesungguhnya mereka akan dibangkitkan. Pada suatu hari yang besar. Yaitu hari ketika manusia berdiri menghadap Tuhan semesta alam” [Al-Muthaffifin : 1-6]`
+  }
 ];
+
 function App() {
   const [count, setCount] = useState(0);
   const savedCallback = useRef();
@@ -28,17 +36,16 @@ function App() {
       savedCallback.current();
     }
 
-    let id = setInterval(tick, 1000);
+    let id = setInterval(tick, 5000);
     return () => clearInterval(id);
   }, []);
 
-
   return (
     <div className="bg-black h-screen flex justify-center items-center p-40">
-      <div className="text-white  text-lg text-3xl">
-        {count}
-        {quotes[count]}
-      </div>
+      <p
+        className="text-white  text-lg text-3xl"
+        dangerouslySetInnerHTML={quotes[count]}
+      ></p>
     </div>
   );
 }
