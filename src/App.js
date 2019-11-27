@@ -36,7 +36,7 @@ function App() {
       savedCallback.current();
     }
 
-    let id = setInterval(tick, 5000);
+    let id = setInterval(tick, 10000);
     return () => clearInterval(id);
   }, []);
 
